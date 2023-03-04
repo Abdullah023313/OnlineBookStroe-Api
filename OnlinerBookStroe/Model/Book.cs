@@ -1,4 +1,6 @@
-﻿namespace OnlinerBookStroe.Model
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace OnlinerBookStroe.Model
 {
     public class Book
     {
@@ -9,11 +11,15 @@
         public string Description { get; set; } = string.Empty;
         public string Language { get; set; } = string.Empty;
         public int Pages { get; set; }
+
+        public int Price { get; set; }
         public double FileSize { get; set; }
-        public bool IsDelete { get; set; }
+        public bool IsDelete { get; set; } = false;
         public string ImagePath { get; set; } = string.Empty;
-        public Author Author { get; set; }=new Author();
-        public Category Category { get; set; } = new Category();
+        public string FilePath { get; set; } = string.Empty;
+
+        public Author Author { get; set; }
+        public Category Category { get; set; }
 
     }
 }

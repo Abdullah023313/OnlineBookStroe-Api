@@ -11,13 +11,17 @@ builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlSer
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(options=>{
+    options.ReturnHttpNotAcceptable=true;
+}).AddXmlDataContractSerializerFormatters();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 
 builder.Services.AddScoped<IBookRepository,BookRepository>();
+
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 var app = builder.Build();
 

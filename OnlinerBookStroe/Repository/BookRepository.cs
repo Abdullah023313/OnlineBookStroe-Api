@@ -44,15 +44,16 @@ namespace OnlinerBookStroe.Repository
 
             return (filterBooks, paginationMetaData);
         }
-        public async Task<Book?> GetBookAsync(int BookId, bool includeBrands = false)
+        public async Task<Book?> GetBookAsync(int BookId, bool includeAllInfo = false)
         {
-            if (includeBrands)
+            if (includeAllInfo)
                 return await _context.Books
-                   .Include(c => c.Category)
-                   .SingleAsync(b => b.BookId == BookId && b.IsDelete == false);
+                            .Include(c => c.Category)
+                            .Include(a => a.Author)
+                            .SingleOrDefaultAsync(b => b.BookId == BookId && b.IsDelete == false);
             else
                 return await _context.Books
-                  .SingleAsync(b => b.BookId == BookId && b.IsDelete == false);
+                  .SingleOrDefaultAsync(b => b.BookId == BookId && b.IsDelete == false);
 
         }
         public async Task<bool> IsvalidBook(int BookId)

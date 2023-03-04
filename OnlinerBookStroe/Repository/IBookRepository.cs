@@ -9,7 +9,7 @@ namespace OnlinerBookStroe.Repository
         Task<bool> IsvalidBook(int BookId);
         Task<Book> AddBookAsync(Book Book);
         Task<(List<Book>? , PaginationMetaData)> GetBooksAsync(int pageNumber, int pageSize, string name);  //TODO
-        Task<Book?> GetBookAsync(int BookId, bool includeBrands = false);
+        Task<Book?> GetBookAsync(int BookId, bool includeAllInfo = false);
         Task UpdateBookAsync(Book Book);
         Task DeleteAsync(Book Book);
     }

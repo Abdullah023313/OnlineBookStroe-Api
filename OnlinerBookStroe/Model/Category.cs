@@ -5,8 +5,7 @@ namespace OnlinerBookStroe.Model
     public class Category
     {
         public int CategoryId { get; set; }
-        public string Name { get; set; } = string.Empty;
-
+        public string CategoryName { get; set; } = string.Empty;
         public List<Book> books { get; set; } = new List<Book>();
     }
 }

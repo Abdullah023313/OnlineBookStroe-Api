@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OnlinerBookStroe.Data;
 
@@ -10,9 +11,11 @@ using OnlinerBookStroe.Data;
 namespace OnlinerBookStroe.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230304091956_ChangeinBook")]
+    partial class ChangeinBook
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -56,10 +59,6 @@ namespace OnlinerBookStroe.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("FilePath")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<double>("FileSize")
                         .HasColumnType("float");
 
@@ -79,9 +78,6 @@ namespace OnlinerBookStroe.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Pages")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Price")
                         .HasColumnType("int");
 
                     b.HasKey("BookId");
