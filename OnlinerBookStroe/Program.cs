@@ -20,6 +20,7 @@ builder.Services.AddSwaggerGen();
 
 
 builder.Services.AddScoped<IBookRepository,BookRepository>();
+builder.Services.AddScoped<ICategoryRepository,CategoryRepository>();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 

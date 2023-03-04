@@ -48,7 +48,7 @@ namespace OnlinerBookStroe.Controllers
             {
                 return NotFound();
             }
-            return Ok(_mapper.Map<BookForDisplayDto>(book));
+            return Ok(_mapper.Map<BookForResponseDto>(book));
         }
 
         [HttpGet]
@@ -60,7 +60,7 @@ namespace OnlinerBookStroe.Controllers
 
             Response.Headers.Add("X-pagination", paginationData.ToString());
 
-            return Ok(_mapper.Map<IList<BookForDisplayDto>>(books));
+            return Ok(_mapper.Map<IList<BookForResponseDto>>(books));
         }
 
 

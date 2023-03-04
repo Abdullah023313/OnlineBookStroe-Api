@@ -4,18 +4,24 @@ using OnlinerBookStroe.Model;
 
 namespace OnlinerBookStroe.Profiles
 {
-    public class BooksProfile : Profile
+    public class Profile : AutoMapper.Profile
     {
-        public BooksProfile()
+        public Profile()
         {
             CreateMap<BookDto, Book>();
 
-            CreateMap<Book, BookForDisplayDto>()
+            CreateMap<Book, BookForResponseDto>()
                 .ForMember(dest => dest.AuthorName, source => source.MapFrom(
                    s => s.Author.AuthorName))
                 .ForMember(dest => dest.CategoryName, source => source.MapFrom(
                    s => s.Category.CategoryName));
+
+
+            CreateMap<Category, CategoryWithoutBook>();
+
+            CreateMap<Category, CategoryWithBook>()
+                .ForMember(dest => dest.books, source => source.MapFrom(
+                   s => s.books));
         }
     }
 }
-    
