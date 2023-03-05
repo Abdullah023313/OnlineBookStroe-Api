@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
-namespace OnlinerBookStroe.Model
+namespace OnlineBookStroe.Model
 {
     public class Category
     {
         public int CategoryId { get; set; }
-        public string CategoryName { get; set; } = string.Empty;
+        public string CategoryName { get; set; } = null!;
         public bool IsDelete { get; set; } = false;
-        public List<Book> books { get; set; } = new List<Book>();
+        public List<Book> Books { get; set; } = new List<Book>();
     }
 }

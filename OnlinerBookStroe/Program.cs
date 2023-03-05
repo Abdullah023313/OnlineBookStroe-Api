@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using OnlinerBookStroe.Data;
-using OnlinerBookStroe.Repository;
+using OnlineBookStroe.Data;
+using OnlineBookStroe.Repository;
+using OnlineBookStroe.Services;
 using System;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,7 +21,10 @@ builder.Services.AddSwaggerGen();
 
 
 builder.Services.AddScoped<IBookRepository,BookRepository>();
+builder.Services.AddScoped<IAuthorRepository,AuthorRepository>();
 builder.Services.AddScoped<ICategoryRepository,CategoryRepository>();
+builder.Services.AddScoped<ICartRepository,CartRepository>();
+builder.Services.AddTransient<IFilesService,FilesService>();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 

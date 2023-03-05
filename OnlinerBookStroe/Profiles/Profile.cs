@@ -1,27 +1,47 @@
 ﻿using AutoMapper;
-using OnlinerBookStroe.Dtos;
-using OnlinerBookStroe.Model;
+using OnlineBookStroe.Dtos;
+using OnlineBookStroe.Model;
 
-namespace OnlinerBookStroe.Profiles
+namespace OnlineBookStroe.Profiles
 {
     public class Profile : AutoMapper.Profile
     {
         public Profile()
         {
-            CreateMap<BookDto, Book>();
+            CreateMap<BookForCreateDto, Book>();
 
-            CreateMap<Book, BookForResponseDto>()
+            CreateMap<Book, BookDto>()
                 .ForMember(dest => dest.AuthorName, source => source.MapFrom(
                    s => s.Author.AuthorName))
                 .ForMember(dest => dest.CategoryName, source => source.MapFrom(
-                   s => s.Category.CategoryName));
+                   s => s.Category.CategoryName))
+                .ForMember(dest => dest.ImagePath, source => source.MapFrom(
+                   s => Path.Combine(Environment.CurrentDirectory, s.ImagePath)))
+                .ForMember(dest => dest.FilePath, source => source.MapFrom(
+                   s => Path.Combine(Environment.CurrentDirectory, s.FilePath)));
+
 
 
             CreateMap<Category, CategoryWithoutBook>();
 
             CreateMap<Category, CategoryWithBook>()
                 .ForMember(dest => dest.books, source => source.MapFrom(
+                   s => s.Books));
+
+            CreateMap<Author, AuthorWithoutBook>();
+
+            CreateMap<Author, AuthorWithBook>()
+                .ForMember(dest => dest.books, source => source.MapFrom(
                    s => s.books));
+
+
+            CreateMap<Cart, CartDto>()
+                .ForMember(dest => dest.BookName, source => source.MapFrom(
+                   s => s.Book.Name))
+                .ForMember(dest => dest.BookPrice, source => source.MapFrom(
+                   s => s.Book.Price))
+                .ForMember(dest => dest.BookImagePath, source => source.MapFrom(
+                   s => s.Book.ImagePath));
         }
     }
 }

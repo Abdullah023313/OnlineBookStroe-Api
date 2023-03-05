@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using OnlinerBookStroe.Data;
-using OnlinerBookStroe.Model;
+using OnlineBookStroe.Data;
+using OnlineBookStroe.Model;
 using System.Net;
 
-namespace OnlinerBookStroe.Repository
+namespace OnlineBookStroe.Repository
 {
     public class CategoryRepository : ICategoryRepository
     {
@@ -32,21 +32,22 @@ namespace OnlinerBookStroe.Repository
 
         public async Task<List<Category>> GetCategoriesAsync()
         {
-            return await _context.Categories.ToListAsync();
+            return await _context.Categories.Where(c => c.IsDelete == false).ToListAsync();
         }
 
         public async Task<Category?> GetCategoryAsync(int categoryId, bool includeBook)
         {
             if (includeBook)
-                return await _context.Categories.Include(c => c.books).ThenInclude(b=>b.Author)
-               .SingleOrDefaultAsync(c => c.CategoryId == categoryId && c.IsDelete == false);
+                return await _context.Categories.Where(c => c.CategoryId == categoryId && c.IsDelete == false)
+                    .Include(c => c.Books).ThenInclude(a => a.Author)
+                    .SingleOrDefaultAsync();
 
             else
                 return await _context.Categories.SingleOrDefaultAsync(c => c.CategoryId == categoryId && c.IsDelete == false);
 
         }
 
-        public async Task<bool> IsvalidCategory(int categoryId)
+        public async Task<bool> IsValidCategory(int categoryId)
         {
             return await _context.Categories
            .AnyAsync(c => c.CategoryId == categoryId && c.IsDelete == false); ;

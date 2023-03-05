@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using OnlinerBookStroe.Data;
-using OnlinerBookStroe.Dtos;
-using OnlinerBookStroe.Model;
+using OnlineBookStroe.Data;
+using OnlineBookStroe.Dtos;
+using OnlineBookStroe.Model;
 using System;
 
-namespace OnlinerBookStroe.Repository
+namespace OnlineBookStroe.Repository
 {
     public class BookRepository : IBookRepository
     {
@@ -56,7 +56,7 @@ namespace OnlinerBookStroe.Repository
                   .SingleOrDefaultAsync(b => b.BookId == BookId && b.IsDelete == false);
 
         }
-        public async Task<bool> IsvalidBook(int BookId)
+        public async Task<bool> IsValidBook(int BookId)
         {
             return await _context.Books
                 .AnyAsync(b => b.BookId == BookId && b.IsDelete == false); ;

@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using OnlinerBookStroe.Model;
+using OnlineBookStroe.Model;
 
-namespace OnlinerBookStroe.Data
+namespace OnlineBookStroe.Data
 {
     public class ApplicationDbContext : DbContext
     {

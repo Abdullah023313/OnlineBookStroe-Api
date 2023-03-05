@@ -2,38 +2,40 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using OnlinerBookStroe.Dtos;
-using OnlinerBookStroe.Model;
-using OnlinerBookStroe.Repository;
+using OnlineBookStroe.Dtos;
+using OnlineBookStroe.Model;
+using OnlineBookStroe.Repository;
 using System.Net;
 
-namespace OnlinerBookStroe.Controllers
+namespace OnlineBookStroe.Controllers
 {
     [Route("api/Books")]
     [ApiController]
     public class BooksController : ControllerBase
     {
-        private readonly ILogger<BooksController> _logger;
         private readonly IBookRepository _bookRepository;
+        private readonly ICategoryRepository _categoryRepository;
+        private readonly IAuthorRepository _authorRepository;
         private readonly IMapper _mapper;
         private readonly int maxPageSize = 50;
 
-        public BooksController(ILogger<BooksController> logger, IBookRepository bookRepository, IMapper mapper)
+        public BooksController(IBookRepository bookRepository, IAuthorRepository authorRepository, ICategoryRepository categoryRepository, IMapper mapper)
         {
-            _logger = logger;
             _bookRepository = bookRepository;
+            _categoryRepository = categoryRepository;
+            _authorRepository = authorRepository;
             _mapper = mapper;
         }
 
         [HttpPost]
-        public async Task<ActionResult> Create(BookDto dto)
+        public async Task<ActionResult> Create(BookForCreateDto dto)
         {
 
-            //TODO  Check if it is Id correct
+            if (!(await _authorRepository.IsValidAuthor(dto.AuthorId) && await _categoryRepository.IsValidCategory(dto.CategoryId)))
+                BadRequest("This authorId or categoryId is not valid");
+
             var book = _mapper.Map<Book>(dto);
-
             await _bookRepository.AddBookAsync(book);
-
             return CreatedAtRoute("GetBook", new
             {
                 bookId = book.BookId
@@ -44,11 +46,14 @@ namespace OnlinerBookStroe.Controllers
         public async Task<ActionResult> GetBook(int bookId)
         {
             var book = await _bookRepository.GetBookAsync(bookId, true);
+
             if (book == null)
             {
                 return NotFound();
             }
-            return Ok(_mapper.Map<BookForResponseDto>(book));
+            
+            return Ok(_mapper.Map<BookDto>(book));
+         
         }
 
         [HttpGet]
@@ -60,7 +65,7 @@ namespace OnlinerBookStroe.Controllers
 
             Response.Headers.Add("X-pagination", paginationData.ToString());
 
-            return Ok(_mapper.Map<IList<BookForResponseDto>>(books));
+            return Ok(_mapper.Map<IList<BookDto>>(books));
         }
 
 
@@ -71,7 +76,7 @@ namespace OnlinerBookStroe.Controllers
             var book = await _bookRepository.GetBookAsync(bookId);
             if (book == null)
             {
-                
+
                 return NotFound($"The book with ID {bookId} could not be found!");
             }
             await _bookRepository.DeleteAsync(book);
@@ -81,33 +86,30 @@ namespace OnlinerBookStroe.Controllers
 
 
         [HttpPut("{bookId}")]
-        public async Task<ActionResult> UpdateProduct(BookDto dto, int bookId)
+        public async Task<ActionResult> UpdateProduct(BookForCreateDto dto, int bookId)
         {
 
             var book = await _bookRepository.GetBookAsync(bookId);
             if (book == null)
-            {
-               
                 return NotFound($"The book with ID {bookId} could not be found!");
+
+            if (await _authorRepository.IsValidAuthor(dto.AuthorId) && await _categoryRepository.IsValidCategory(dto.CategoryId))
+            {
+                book.AuthorId = dto.AuthorId;
+                book.CategoryId = dto.CategoryId;
+                book.Name = dto.Name;
+                book.Description = dto.Description;
+                book.Language = dto.Language;
+                book.Pages = dto.Pages;
+                book.FileSize = dto.FileSize;
+                book.ImagePath = dto.ImagePath;
+                book.FilePath = dto.FilePath;
+                book.Price = dto.Price;
+                await _bookRepository.UpdateBookAsync(book);
             }
-
-           
-            book.AuthorId = dto.AuthorId;     //TODO  Check if it is Id correct
-            book.CategoryId = dto.CategoryId;     //TODO  Check if it is Id correct
-            book.Name = dto.Name;
-            book.Description = dto.Description;
-            book.Language = dto.Language;
-            book.Pages = dto.Pages;
-            book.FileSize = dto.FileSize;
-            book.ImagePath = dto.ImagePath;
-            book.FilePath = dto.FilePath;
-            book.Price = dto.Price;
-
-            await _bookRepository.UpdateBookAsync(book);
+            else  BadRequest("This authorId or categoryId is not valid");
 
             return NoContent();
         }
-
-
     }
 }

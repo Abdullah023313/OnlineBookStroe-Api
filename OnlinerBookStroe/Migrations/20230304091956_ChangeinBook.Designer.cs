@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using OnlinerBookStroe.Data;
+using OnlineBookStroe.Data;
 
 #nullable disable
 
-namespace OnlinerBookStroe.Migrations
+namespace OnlineBookStroe.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     [Migration("20230304091956_ChangeinBook")]

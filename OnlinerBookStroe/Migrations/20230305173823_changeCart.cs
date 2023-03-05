@@ -5,21 +5,19 @@
 namespace OnlineBookStroe.Migrations
 {
     /// <inheritdoc />
-    public partial class fixCategories : Migration
+    public partial class changeCart : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<bool>(
-                name: "IsDelete",
-                table: "Categories",
-                type: "bit",
-                nullable: false,
-                defaultValue: false);
+            migrationBuilder.RenameColumn(
+                name: "CartId",
+                table: "Carts",
+                newName: "ItemId");
 
             migrationBuilder.AddColumn<bool>(
                 name: "IsDelete",
-                table: "Authors",
+                table: "Carts",
                 type: "bit",
                 nullable: false,
                 defaultValue: false);
@@ -30,11 +28,12 @@ namespace OnlineBookStroe.Migrations
         {
             migrationBuilder.DropColumn(
                 name: "IsDelete",
-                table: "Categories");
+                table: "Carts");
 
-            migrationBuilder.DropColumn(
-                name: "IsDelete",
-                table: "Authors");
+            migrationBuilder.RenameColumn(
+                name: "ItemId",
+                table: "Carts",
+                newName: "CartId");
         }
     }
 }

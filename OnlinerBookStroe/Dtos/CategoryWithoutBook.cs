@@ -1,4 +1,4 @@
-﻿namespace OnlinerBookStroe.Dtos
+﻿namespace OnlineBookStroe.Dtos
 {
     public class CategoryWithoutBook
     {

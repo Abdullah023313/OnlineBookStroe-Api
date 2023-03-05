@@ -1,11 +1,11 @@
-﻿using OnlinerBookStroe.Dtos;
-using OnlinerBookStroe.Model;
+﻿using OnlineBookStroe.Dtos;
+using OnlineBookStroe.Model;
 
-namespace OnlinerBookStroe.Repository
+namespace OnlineBookStroe.Repository
 {
     public interface ICategoryRepository
     {
-        Task<bool> IsvalidCategory(int categoryId);
+        Task<bool> IsValidCategory(int categoryId);
         Task<Category> AddCategoryAsync(Category category);
         Task<List<Category>> GetCategoriesAsync();  //TODO
         Task<Category?> GetCategoryAsync(int categoryId , bool includeBook=false);

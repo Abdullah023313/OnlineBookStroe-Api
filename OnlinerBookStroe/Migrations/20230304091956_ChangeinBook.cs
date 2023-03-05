@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace OnlinerBookStroe.Migrations
+namespace OnlineBookStroe.Migrations
 {
     /// <inheritdoc />
     public partial class ChangeinBook : Migration

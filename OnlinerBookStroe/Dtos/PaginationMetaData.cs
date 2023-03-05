@@ -1,6 +1,6 @@
 ﻿using System.Text.Json;
 
-namespace OnlinerBookStroe.Dtos
+namespace OnlineBookStroe.Dtos
 {
     public class PaginationMetaData
     {

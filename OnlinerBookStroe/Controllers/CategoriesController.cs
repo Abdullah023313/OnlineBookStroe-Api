@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using OnlinerBookStroe.Dtos;
-using OnlinerBookStroe.Model;
-using OnlinerBookStroe.Repository;
+using OnlineBookStroe.Dtos;
+using OnlineBookStroe.Model;
+using OnlineBookStroe.Repository;
 using System.Net;
 
-namespace OnlinerBookStroe.Controllers
+namespace OnlineBookStroe.Controllers
 {
     [Route("api/Categories")]
     [ApiController]
@@ -26,13 +26,13 @@ namespace OnlinerBookStroe.Controllers
         [HttpPost]
         public async Task<ActionResult> Create(string CategoryName)
         {
-            var Category = new Category
+            var category = new Category
             {
                 CategoryName = CategoryName,
                 IsDelete = false
             };
 
-            var category= await _categoryRepository.AddCategoryAsync(Category);
+            await _categoryRepository.AddCategoryAsync(category);
             return CreatedAtRoute("GetCategory", new
             {
                 categoryId = category.CategoryId
@@ -41,14 +41,17 @@ namespace OnlinerBookStroe.Controllers
 
 
         [HttpGet("{categoryId}", Name = "GetCategory")]
-        public async Task<ActionResult> GetCategory(int categoryId)
+        public async Task<ActionResult> GetCategory(int categoryId , bool includeBook)
         {
-            var category = await _categoryRepository.GetCategoryAsync(categoryId, true);
+            var category = await _categoryRepository.GetCategoryAsync(categoryId, includeBook);
             if (category == null)
             {
                 return NotFound();
             }
-            return Ok(_mapper.Map<CategoryWithBook>(category));
+            if(includeBook)
+                return Ok(_mapper.Map<CategoryWithBook>(category));
+            else 
+                return Ok(_mapper.Map<CategoryWithoutBook>(category));
 
         }
 

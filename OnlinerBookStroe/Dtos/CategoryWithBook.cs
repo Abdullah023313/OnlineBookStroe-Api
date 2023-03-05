@@ -1,11 +1,11 @@
-﻿using OnlinerBookStroe.Model;
+﻿using OnlineBookStroe.Model;
 
-namespace OnlinerBookStroe.Dtos
+namespace OnlineBookStroe.Dtos
 {
     public class CategoryWithBook
     {
         public int CategoryId { get; set; }
         public string CategoryName { get; set; } = string.Empty;
-        public List<BookForResponseDto> books { get; set; } = new List<BookForResponseDto>();
+        public List<BookDto> books { get; set; } = new List<BookDto>();
     }
 }

@@ -1,14 +1,14 @@
-﻿using OnlinerBookStroe.Dtos;
-using OnlinerBookStroe.Model;
+﻿using OnlineBookStroe.Dtos;
+using OnlineBookStroe.Model;
 using System;
 
-namespace OnlinerBookStroe.Repository
+namespace OnlineBookStroe.Repository
 {
     public interface IBookRepository
     {
-        Task<bool> IsvalidBook(int BookId);
+        Task<bool> IsValidBook(int BookId);
         Task<Book> AddBookAsync(Book Book);
-        Task<(List<Book>? , PaginationMetaData)> GetBooksAsync(int pageNumber, int pageSize, string name);  //TODO
+        Task<(List<Book>?, PaginationMetaData)> GetBooksAsync(int pageNumber, int pageSize, string name);  //TODO
         Task<Book?> GetBookAsync(int BookId, bool includeAllInfo = false);
         Task UpdateBookAsync(Book Book);
         Task DeleteAsync(Book Book);

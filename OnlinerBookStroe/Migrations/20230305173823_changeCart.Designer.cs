@@ -11,8 +11,8 @@ using OnlineBookStroe.Data;
 namespace OnlineBookStroe.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230304104055_Add-Price-to-Book")]
-    partial class AddPricetoBook
+    [Migration("20230305173823_changeCart")]
+    partial class changeCart
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -35,6 +35,9 @@ namespace OnlineBookStroe.Migrations
                     b.Property<string>("AuthorName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDelete")
+                        .HasColumnType("bit");
 
                     b.HasKey("AuthorId");
 
@@ -98,19 +101,22 @@ namespace OnlineBookStroe.Migrations
 
             modelBuilder.Entity("OnlinerBookStroe.Model.Cart", b =>
                 {
-                    b.Property<int>("CartId")
+                    b.Property<int>("ItemId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CartId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ItemId"));
 
                     b.Property<int>("BookId")
                         .HasColumnType("int");
 
+                    b.Property<bool>("IsDelete")
+                        .HasColumnType("bit");
+
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.HasKey("CartId");
+                    b.HasKey("ItemId");
 
                     b.HasIndex("BookId");
 
@@ -128,6 +134,9 @@ namespace OnlineBookStroe.Migrations
                     b.Property<string>("CategoryName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDelete")
+                        .HasColumnType("bit");
 
                     b.HasKey("CategoryId");
 
