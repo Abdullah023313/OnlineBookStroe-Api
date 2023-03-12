@@ -14,11 +14,8 @@ namespace OnlineBookStroe.Profiles
                 .ForMember(dest => dest.AuthorName, source => source.MapFrom(
                    s => s.Author.AuthorName))
                 .ForMember(dest => dest.CategoryName, source => source.MapFrom(
-                   s => s.Category.CategoryName))
-                .ForMember(dest => dest.ImagePath, source => source.MapFrom(
-                   s => Path.Combine(Environment.CurrentDirectory, s.ImagePath)))
-                .ForMember(dest => dest.FilePath, source => source.MapFrom(
-                   s => Path.Combine(Environment.CurrentDirectory, s.FilePath)));
+                   s => s.Category.CategoryName));
+                
 
 
 

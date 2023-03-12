@@ -20,20 +20,20 @@ namespace WebAppApi.Controllers
         [HttpPost("UploadFile")]
         public async Task<ActionResult<string>> UploadFile(IFormFile file)
         {
-            string nameFile = await _filesService.UploadFiles(file);
+            string nameFile = await _filesService.UploadFile(file);
             return Ok(nameFile);
         }
 
         [HttpGet("GetImage")]
         public async Task<ActionResult> GetImage(string imageName)
         {
-            return File(await _filesService.GetFiles(imageName), "image/jpeg");
+            return File(await _filesService.GetFile(imageName), "image/jpeg");
         }
 
         [HttpGet("GetPdf")]
         public async Task<ActionResult> GetPdf(string PdfName)
         {
-            return File(await _filesService.GetFiles(PdfName), "Application/pdf");//TODO
+            return File(await _filesService.GetFile(PdfName),"Application/pdf");
         }
     }
 }

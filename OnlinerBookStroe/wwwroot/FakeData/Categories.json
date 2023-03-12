@@ -1,0 +1,14 @@
+[
+  {
+    "CategoryName": "Fantasy",
+    "isDelete": false
+  },
+  {
+    "CategoryName": "Mystery",
+    "isDelete": false
+  },
+  {
+    "CategoryName": "Science Fiction",
+    "isDelete": false
+  }
+]

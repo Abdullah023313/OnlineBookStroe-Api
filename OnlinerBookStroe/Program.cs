@@ -26,6 +26,7 @@ builder.Services.AddScoped<ICategoryRepository,CategoryRepository>();
 builder.Services.AddScoped<ICartRepository,CartRepository>();
 builder.Services.AddTransient<IFilesService,FilesService>();
 
+
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 var app = builder.Build();

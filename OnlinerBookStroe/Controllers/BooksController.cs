@@ -41,6 +41,7 @@ namespace OnlineBookStroe.Controllers
             {
                 bookId = book.BookId
             }, book);
+
         }
 
         [HttpGet("{bookId}", Name = "GetBook")]
@@ -52,9 +53,9 @@ namespace OnlineBookStroe.Controllers
             {
                 return NotFound();
             }
-            
+
             return Ok(_mapper.Map<BookDto>(book));
-         
+
         }
 
         [HttpGet]
@@ -62,7 +63,7 @@ namespace OnlineBookStroe.Controllers
         {
             pageSize = pageSize > maxPageSize ? maxPageSize : pageSize;
 
-            var (books, paginationData) = await _bookRepository.GetBooksAsync(PageNumber, pageSize, name: name);
+            var (books, paginationData) = await _bookRepository.GetBooksAsync(PageNumber, pageSize, name);
 
             Response.Headers.Add("X-pagination", paginationData.ToString());
 
@@ -108,7 +109,7 @@ namespace OnlineBookStroe.Controllers
                 book.Price = dto.Price;
                 await _bookRepository.UpdateBookAsync(book);
             }
-            else  BadRequest("This authorId or categoryId is not valid");
+            else BadRequest("This authorId or categoryId is not valid");
 
             return NoContent();
         }

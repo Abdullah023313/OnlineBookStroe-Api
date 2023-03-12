@@ -22,10 +22,10 @@ namespace OnlineBookStroe.Controllers
 
 
         [HttpPost]
-        public async Task<ActionResult> AddBooktoCart(CartForCreateDto dto , [FromServices] BookRepository bookRepository)
+        public async Task<ActionResult> AddBooktoCart(CartForCreateDto dto , [FromServices] IBookRepository bookRepository)
         {
             if (! await bookRepository.IsValidBook(dto.BookId))
-                BadRequest();
+                return BadRequest();
 
             var item = new Cart()
             {

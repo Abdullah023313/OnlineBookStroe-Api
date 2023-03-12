@@ -58,7 +58,7 @@ namespace OnlineBookStroe.Controllers
 
 
         [HttpGet]
-        public async Task<ActionResult> GetCategories() //TODO Filter
+        public async Task<ActionResult> GetCategories() 
         {
             var categorise = await _categoryRepository.GetCategoriesAsync();
 
@@ -73,11 +73,12 @@ namespace OnlineBookStroe.Controllers
             if (category == null)
             {
 
-                return NotFound($"The Category with ID {CategoryId} could not be found!");
+                return NotFound($"The Category with Id {CategoryId} could not be found!");
             }
             await _categoryRepository.DeleteAsync(category);
             return NoContent();
         }
+
 
         [HttpPut("{CategoryId}")]
         public async Task<ActionResult> UpdateCategory(string CategoryName, int CategoryId)
@@ -86,12 +87,13 @@ namespace OnlineBookStroe.Controllers
             if (category == null)
             {
 
-                return NotFound($"The Category with ID {CategoryId} could not be found!");
+                return NotFound($"The Category with Id {CategoryId} could not be found!");
             }
             category.CategoryName = CategoryName;
             await _categoryRepository.UpdateCategoryAsync(category);
 
             return Ok(_mapper.Map<CategoryWithoutBook>(category));
         }
+
     }
 }
