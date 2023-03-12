@@ -32,7 +32,7 @@ namespace OnlineBookStroe.Controllers
                 BookId = dto.BookId,
                 UserId = dto.UserId,
             };
-            await _cartRepository.AddBooktoCart(item);
+            await _cartRepository.AddBooktoCartAsync(item);
             return Ok();
         }
 
@@ -40,7 +40,7 @@ namespace OnlineBookStroe.Controllers
         [HttpGet]
         public async Task<ActionResult> GetCartForUser(int userId)
         {
-            var items = await _cartRepository.GetCartForUser(userId);
+            var items = await _cartRepository.GetCartForUserAsync(userId);
 
             if (items == null)
                 return BadRequest("No Items");
@@ -49,5 +49,18 @@ namespace OnlineBookStroe.Controllers
         }
 
 
+        [HttpDelete(template:"DeleteItem")]
+        public async Task<ActionResult> DeleteItemForCartAsync(int ItemId)
+        {
+            await _cartRepository.DeleteItemForCartAsync(ItemId);
+            return NoContent();
+        }
+
+        [HttpDelete(template:"DeleteUserItems")]
+        public async Task<ActionResult> DeleteUserItemsAsync(int userId)
+        {
+            await _cartRepository.DeleteUserItemsAsync(userId);
+            return NoContent();
+        }
     }
 }

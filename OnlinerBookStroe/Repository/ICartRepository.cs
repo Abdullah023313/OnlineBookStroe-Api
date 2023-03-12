@@ -4,9 +4,9 @@ namespace OnlineBookStroe.Repository
 {
     public interface ICartRepository
     {
-        Task<Cart> AddBooktoCart(Cart cart);
-        Task<List<Cart>?> GetCartForUser(int userId);
-        Task DeleteUserItems(int userId);
-        Task DeleteItemForCartAsync(Cart cart);
+        Task<Cart> AddBooktoCartAsync(Cart cart);
+        Task<List<Cart>?> GetCartForUserAsync(int userId);
+        Task DeleteUserItemsAsync(int userId);
+        Task DeleteItemForCartAsync(int ItemId);
     }
 }

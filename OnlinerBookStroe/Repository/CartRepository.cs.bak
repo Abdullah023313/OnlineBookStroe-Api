@@ -12,25 +12,20 @@ namespace OnlineBookStroe.Repository
         {
             _context = context;
         }
-        public async Task<Cart> AddBooktoCartAsync(Cart cart)
+        public async Task<Cart> AddBooktoCart(Cart cart)
         {
             await _context.Carts.AddAsync(cart);
             await _context.SaveChangesAsync();
             return cart;
         }
 
-        public async Task DeleteItemForCartAsync(int ItemId)
+        public async Task DeleteItemForCartAsync(Cart cart)
         {
-            var Item = await _context.Carts.Where(c => c.ItemId == ItemId).FirstOrDefaultAsync();
-            if (Item != null)
-            {
-                _context.Carts.Remove(Item);
-                await _context.SaveChangesAsync();
-            }         
+            _context.Carts.Remove(cart);
+            await _context.SaveChangesAsync();
         }
 
-
-        public async Task DeleteUserItemsAsync(int userId)
+        public async Task DeleteUserItems(int userId)
         {
             var Items = await _context.Carts.Where(c => c.UserId== userId).ToListAsync();
             if (Items != null)
@@ -40,13 +35,13 @@ namespace OnlineBookStroe.Repository
             }
         }
 
-
-        public async Task<List<Cart>?> GetCartForUserAsync(int userId)
+        public async Task<List<Cart>?> GetCartForUser(int userId)
         {
             return await _context.Carts
                 .Where(c => c.UserId== userId) 
                 .Include(c=>c.Book)
                 .ToListAsync();
         }
+
     }
 }
