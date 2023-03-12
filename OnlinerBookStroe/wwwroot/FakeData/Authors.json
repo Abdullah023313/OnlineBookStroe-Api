@@ -1,0 +1,18 @@
+[
+  {
+    "AuthorName": "J.K. Rowling",
+    "isDelete": false
+  },
+  {
+    "AuthorName": "Stephen King",
+    "isDelete": false
+  },
+  {
+    "AuthorName": "Agatha Christie",
+    "isDelete": false
+  },
+  {
+    "AuthorName": "George Orwell",
+    "isDelete": false
+  }
+]

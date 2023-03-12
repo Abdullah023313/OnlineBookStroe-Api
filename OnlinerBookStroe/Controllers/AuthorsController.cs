@@ -29,7 +29,6 @@ namespace OnlineBookStroe.Controllers
             var author = new Author
             {
                 AuthorName = authorName,
-                IsDelete = false
             };
 
             await _authorRepository.AddAuthorAsync(author);
@@ -73,7 +72,6 @@ namespace OnlineBookStroe.Controllers
             var author = await _authorRepository.GetAuthorAsync(authorId);
             if (author == null)
             {
-
                 return NotFound($"The Author with ID {authorId} could not be found!");
             }
             await _authorRepository.DeleteAsync(author);
